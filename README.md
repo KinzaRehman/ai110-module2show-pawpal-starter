@@ -44,15 +44,23 @@ pip install -r requirements.txt
 
 ## 🖥️ Sample Output
 
-Paste a sample of your app's CLI or Streamlit output here so a reader can see what a generated plan looks like:
+TODAY'S SCHEDULE - SORTED BY PRIORITY THEN TIME
+🐾 Daily Care Plan for Kinza
+2026-07-06 08:00 | Mochi | Breakfast | HIGH | 15 min | ⏳ Pending
+2026-07-06 08:00 | Mochi | Medication | HIGH | 5 min | ⏳ Pending
+2026-07-06 18:30 | Buddy | Evening Walk | MEDIUM | 30 min | ⏳ Pending
+2026-07-06 13:00 | Buddy | Grooming | LOW | 20 min | ⏳ Pending
 
-```
-# e.g.:
-# Daily plan for Biscuit (Golden Retriever):
-#   08:00 — Morning walk (30 min) [priority: high]
-#   09:00 — Feeding (10 min) [priority: high]
-#   ...
-```
+CONFLICT WARNINGS
+⚠️ Conflict: Mochi's Breakfast and Mochi's Medication are both at 08:00.
+
+MARKING BREAKFAST COMPLETE
+🐾 Daily Care Plan for Kinza
+2026-07-06 08:00 | Mochi | Breakfast | HIGH | 15 min | ✅ Done
+2026-07-06 08:00 | Mochi | Medication | HIGH | 5 min | ⏳ Pending
+2026-07-07 08:00 | Mochi | Breakfast | HIGH | 15 min | ⏳ Pending
+2026-07-06 18:30 | Buddy | Evening Walk | MEDIUM | 30 min | ⏳ Pending
+2026-07-06 13:00 | Buddy | Grooming | LOW | 20 min | ⏳ Pending
 
 ## 🧪 Testing PawPal+
 
@@ -65,30 +73,29 @@ pytest --cov
 ```
 
 Sample test output:
-
+5 passed in 0.11s
 ```
 # Paste your pytest output here
 ```
 
 ## 📐 Smarter Scheduling
 
-> Fill in once you've implemented scheduling logic.
-
 | Feature | Method(s) | Notes |
 |---------|-----------|-------|
-| Task sorting | | e.g., by priority, duration |
-| Filtering | | e.g., skip tasks if time runs out |
-| Conflict handling | | e.g., overlapping time slots |
-| Recurring tasks | | e.g., daily vs. weekly |
+| Task sorting | `Scheduler.sort_by_time()` and `Scheduler.sort_by_priority_then_time()` | Tasks can be sorted chronologically or by priority first, then time. |
+| Filtering | `Scheduler.filter_by_pet()` and `Scheduler.filter_by_status()` | The scheduler can show tasks for one pet or filter completed vs. incomplete tasks. |
+| Conflict handling | `Scheduler.detect_conflicts()` | The app warns the owner when two tasks are scheduled for the same date and time. |
+| Recurring tasks | `Task.create_next_occurrence()` and `Scheduler.complete_task()` | Daily tasks create a new task for the next day; weekly tasks create a new task for the next week. |
 
 ## 📸 Demo Walkthrough
 
-Describe your app in numbered steps so a reader can follow along without watching a video:
+1. Enter the owner's name and select how many pets you want to manage.
+2. Enter each pet's name and species. Choose from Cat, Dog, or Other, and click **Save Pets** to store the information.
+3. Select a pet and add one or more care tasks by choosing a task type (or entering a custom task), duration, due time, frequency, and priority.
+4. View the current list of tasks for each pet in the task table. Tasks display the pet name, species, due date, due time, priority, duration, frequency, and completion status.
+5. Click **Generate Schedule** to create the daily care plan. The Scheduler sorts tasks by priority and time, displays the schedule, and warns the user if any tasks are scheduled at the same date and time.
+6. Run `main.py` to view the CLI demonstration, including recurring task generation after a task is marked complete.
+7. Run `python -m pytest` to verify the application's core functionality through automated tests.
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+**Screenshot or video (optional):**
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->

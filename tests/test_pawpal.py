@@ -12,7 +12,7 @@ def test_mark_complete_changes_status():
 
 
 def test_add_task_increases_pet_task_count():
-    pet = Pet("Mochi", "cat", 2)
+    pet = Pet("Mochi", "cat")
     task = Task("Breakfast", date.today(), "08:00", 15)
 
     pet.add_task(task)
@@ -22,7 +22,7 @@ def test_add_task_increases_pet_task_count():
 
 def test_sort_by_time_orders_tasks_chronologically():
     owner = Owner("Kinza")
-    pet = Pet("Mochi", "cat", 2)
+    pet = Pet("Mochi", "cat")
 
     pet.add_task(Task("Dinner", date.today(), "18:00", 10))
     pet.add_task(Task("Breakfast", date.today(), "08:00", 10))
@@ -38,7 +38,7 @@ def test_sort_by_time_orders_tasks_chronologically():
 
 def test_daily_recurrence_creates_tomorrow_task():
     owner = Owner("Kinza")
-    pet = Pet("Mochi", "cat", 2)
+    pet = Pet("Mochi", "cat")
 
     pet.add_task(Task("Breakfast", date.today(), "08:00", 15, frequency="daily"))
     owner.add_pet(pet)
@@ -52,7 +52,7 @@ def test_daily_recurrence_creates_tomorrow_task():
 
 def test_conflict_detection_finds_duplicate_time():
     owner = Owner("Kinza")
-    pet = Pet("Mochi", "cat", 2)
+    pet = Pet("Mochi", "cat")
 
     pet.add_task(Task("Breakfast", date.today(), "08:00", 15))
     pet.add_task(Task("Medication", date.today(), "08:00", 5))
