@@ -1,7 +1,7 @@
 import streamlit as st
 from datetime import date
 
-from pawpal_system import Owner, Pet, Task, Scheduler, Plan
+from pawpal_system import Owner, Pet, Task, Scheduler, Plan, save_owner_to_json, load_owner_from_json
 
 
 st.set_page_config(page_title="PawPal+", page_icon="🐾", layout="wide")
@@ -160,7 +160,7 @@ def species_emoji(species: str) -> str:
 
 
 if "owner" not in st.session_state:
-    st.session_state.owner = Owner("Kinza")
+    st.session_state.owner = load_owner_from_json()
 
 # ---------------------------------------------------------------- OWNER + PETS
 # OWNER + PETS
@@ -301,6 +301,7 @@ if save_pets:
         if pet_name and species:
             st.session_state.owner.add_pet(Pet(pet_name, species))
 
+    save_owner_to_json(st.session_state.owner)
     st.success("Pets saved!")
 
 if st.session_state.owner.pets:
@@ -372,6 +373,7 @@ with left_card:
                 frequency=frequency,
             )
             selected_pet.add_task(task)
+            save_owner_to_json(st.session_state.owner)
             st.success(f"Added {task_title} for {selected_pet.name}.")
         else:
             st.warning("Please enter a task title.")
@@ -448,9 +450,11 @@ with right_card:
                 # tasks correctly spawn their next occurrence via
                 # Task.create_next_occurrence().
                 scheduler.complete_task(pet.name, task.title)
+                save_owner_to_json(st.session_state.owner)
                 st.rerun()
             elif not checked and task.completed:
                 task.completed = False
+                save_owner_to_json(st.session_state.owner)
                 st.rerun()
     else:
         st.info("No tasks match this filter yet.")

@@ -63,3 +63,14 @@ def test_conflict_detection_finds_duplicate_time():
     conflicts = scheduler.detect_conflicts()
 
     assert len(conflicts) == 1
+
+def test_next_available_slot_skips_occupied_time():
+    owner = Owner("Kinza")
+    pet = Pet("Mochi", "cat")
+
+    pet.add_task(Task("Breakfast", date.today(), "08:00", 15))
+    owner.add_pet(pet)
+
+    scheduler = Scheduler(owner)
+
+    assert scheduler.next_available_slot(start_time="08:00", end_time="09:00") == "08:15"
