@@ -73,7 +73,11 @@ pytest --cov
 ```
 
 Sample test output:
-5 passed in 0.11s
+======================================= test session starts =======================================
+
+tests\test_pawpal.py ......                                                                  [100%]
+
+======================================== 6 passed in 0.08s ========================================
 ```
 # Paste your pytest output here
 ```
